@@ -9,15 +9,35 @@
     <main>
         <h1>Welcome to New Currency Converter</h1>
         <form>
+            <fieldset class="frame">
+                <legend>From</legend>
             <label class="amount">Amount</label>
-            <input id="amount_input" type="number" width="35px">
+            <input id="amount_input" type="number" width="35px" placeholder="1">
             <label for="curr_input">Choose a currency:</label>
             <select id="curr_input" name="curr_input">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="fiat">Fiat</option>
-                <option value="audi">Audi</option>
+                <option value="dkk">DKK - Danish Krone</option>
+                <option value="usd">USD - US Dollar</option>
+                <option value="eur">EUR - Euro</option>
+                <option value="gbp">GBP - British pound</option>
+                <option value="cad">CAD - Canadian dollar</option>
+                <option value="jpy">JPY - Japanese Yen</option>
             </select>
+            </fieldset>
+            <fieldset>
+                <legend>To</legend>
+            <label class="amount">Amount</label>
+            <input id="amount_output" type="number" width="35px">
+            <label for="curr_output">Choose a currency:</label>
+            <select id="curr_output" name="curr_output">
+                <option value="dkk">DKK - Danish Krone</option>
+                <option value="usd">USD - US Dollar</option>
+                <option value="eur">EUR - Euro</option>
+                <option value="gbp">GBP - British pound</option>
+                <option value="cad">CAD - Canadian dollar</option>
+                <option value="jpy">JPY - Japanese Yen</option>
+            </select>
+            </fieldset>
+            <button type="submit" class="btn">Convert</button>
         </form>
 
     </main>
