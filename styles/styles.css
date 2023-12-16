@@ -54,6 +54,7 @@ input {
  border-radius: 4px;
  border: 1px solid #939393;
  height: 44px;
+ width: 90px;
  margin-right: 12px;
  padding: 3px 10px 3px 10px;
  position: relative;
@@ -66,11 +67,34 @@ input {
   font-weight: 600;
 }
 
+.btn_rate {
+  width: 200px;
+  height: 68px;
+  font-weight: 700;
+  font-size: 24px;
+  /* align-items: center; */
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(93deg, #FD7B46 1.15%, #FE4E9B 98.48%);
+  border-radius: 68px;
+  border: 0;
+  margin: 23px 177px 23px 177px;
+  /* margin-top: 54px;
+  margin-bottom: 23px; */
+  /* display: block; */
+  @media screen and (min-width: 400px) {
+     width: 326px;
+  }
+}
+
 .select_curr{
  color: #626060;
   text-align: center;
   font-size: 18px;
   font-weight: 400;
+  padding: 12px;
 }
 
 .btn {
@@ -86,8 +110,9 @@ input {
   background: linear-gradient(93deg, #FD7B46 1.15%, #FE4E9B 98.48%);
   border-radius: 68px;
   border: 0;
-  margin-top: 54px;
-  margin-bottom: 23px;
+  margin: 54px 237px 32px;
+  /* margin-top: 54px;
+  margin-bottom: 23px; */
   /* display: block; */
   @media screen and (min-width: 400px) {
      width: 326px;

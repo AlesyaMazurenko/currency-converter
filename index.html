@@ -13,17 +13,26 @@
     <main>
         <form>
             <fieldset class="frame">
+                <legend>Insert rates</legend>
+                <label class="lbl_form" for="base_curr">Base currency</label>
+                <input id="base_curr" type="text" maxlength="3" value="EUR">
+                <label class="lbl_form" for="new_curr">New currency</label>
+                <input id="new_curr" type="text" maxlength="3" >
+                <label class="lbl_form" for="curr_rate">Rate</label>
+                <input id="curr_rate" name="curr_rate"  placeholder="1" value="1">
+
+                <button type="submit" class="btn_rate" onclick='onRateSubmit(event)'>Add rate</button>
+            </fieldset>
+        </form>
+
+        <form>
+            <fieldset class="frame">
                 <legend>From</legend>
             <label class="lbl_form" for="amount_input">Amount</label>
-            <input id="amount_input" type="number" width="25px" placeholder="1">
+            <input id="amount_input" type="number" width="25px" placeholder="1" value="1">
             <label class="lbl_form"  for="curr_input">Choose a currency:</label>
             <select class='select_curr' id="curr_input" name="curr_input">
-                <option value="dkk">DKK - Danish Krone</option>
-                <option value="usd">USD - US Dollar</option>
-                <option value="eur">EUR - Euro</option>
-                <option value="gbp">GBP - British pound</option>
-                <option value="cad">CAD - Canadian dollar</option>
-                <option value="jpy">JPY - Japanese Yen</option>
+                <option value="EUR">EUR</option>
             </select>
             </fieldset>
             <fieldset  class="frame">
@@ -35,7 +44,7 @@
 
                 <!-- <option value="dkk">DKK - Danish Krone</option>
                 <option value="usd">USD - US Dollar</option>
-                <option value="eur">EUR - Euro</option>
+                <option value="eur"> - Euro</option>
                 <option value="gbp">GBP - British pound</option>
                 <option value="cad">CAD - Canadian dollar</option>
                 <option value="jpy">JPY - Japanese Yen</option> -->
