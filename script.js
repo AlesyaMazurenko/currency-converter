@@ -1,16 +1,3 @@
-// const currencyRate = {
-//   timestamp: 1620386223,
-//   base: "DKK",
-//     rates: {
-//         USD: 0.1444,
-//         EUR: 0.134,
-//         GBP: 0.1151,
-//         CAD: 0.1963,
-//         JPY: 20.9142,
-//         DKK: 1,
-//     },
-// };
-
 let currencyRate = {
   timestamp: 1519296206, 
   base: "EUR",
@@ -22,10 +9,6 @@ let currencyRate = {
 const rates = currencyRate.rates;
 console.log(rates);
 
-// const currOptions = document.getElementById("curr_output");
-// rates.forEach(element => {
-//      console.log(element);
-// });
 
 function addRate() {
   const listofCurr = document.getElementById("curr_output");
@@ -35,7 +18,7 @@ function addRate() {
     // (rate) => {
       const listItem =
         (listofCurr.innerHTML += `<option value="${key}">${key}</option>`);
-      // listElem.appendChild(listItem)
+      listElem.appendChild(listItem)
     });
   listofCurr.appendChild(listElem);
 }
@@ -57,7 +40,6 @@ function onRateSubmit(event) {
 
 function onSubmit() {
   const amountIn = document.getElementById("amount_input").valueAsNumber;
-  const currencyIn = document.getElementById("curr_input").value;
   const amountOut = document.getElementById("amount_output");
   let currencyOut = document
     .getElementById("curr_output")
