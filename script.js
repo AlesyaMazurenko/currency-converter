@@ -10,32 +10,32 @@ const rates = currencyRate.rates;
 console.log(rates);
 
 
-function addRate() {
+function addRate(newCurrency) {
   const listofCurr = document.getElementById("curr_output");
-  console.log(currencyRate.rates)
-    // const listElem = currencyRate.rates.forEach(
-    Object.keys(currencyRate.rates).forEach(function(key) {
-    // (rate) => {
-      const listItem =
-        (listofCurr.innerHTML += `<option value="${key}">${key}</option>`);
-      listElem.appendChild(listItem)
-    });
-  listofCurr.appendChild(listElem);
+   const listItem = document.createElement("option");
+  listItem.value = newCurrency;
+  listItem.innerHTML = newCurrency;
+  listofCurr.appendChild(listItem);
 }
+
 
 function onRateSubmit(event) {
   event.preventDefault();
   const currBase = document.getElementById("base_curr").value;
   const newCurrency = document.getElementById("new_curr").value;
   const newRate = document.getElementById('curr_rate').value;
-  if (currBase!=="" && newCurrency!=='') {
-    currencyRate.base = currBase;
+  if (currBase !== "" && newCurrency !== '') {
+    if (!currencyRate.rates[newCurrency]) {
+      addRate(newCurrency);
+    }
     currencyRate.rates[newCurrency] = newRate;
   } else {
     alert('Please insert name of currency')
   }
   console.log(currencyRate);
-  addRate();
+  
+  document.getElementById("new_curr").value = "";
+  document.getElementById("curr_rate").value = "";
 }
 
 function onSubmit() {
@@ -47,6 +47,4 @@ function onSubmit() {
   const rate = currencyRate.rates[currencyOut];
   const converted = amountIn * rate;
   amountOut.value = converted;
-
-  
 }
