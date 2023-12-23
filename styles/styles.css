@@ -72,7 +72,6 @@ input {
   height: 68px;
   font-weight: 700;
   font-size: 24px;
-  /* align-items: center; */
   color: #FFFFFF;
   text-align: center;
   font-size: 24px;
@@ -81,9 +80,6 @@ input {
   border-radius: 68px;
   border: 0;
   margin: 23px 177px 23px 177px;
-  /* margin-top: 54px;
-  margin-bottom: 23px; */
-  /* display: block; */
   @media screen and (min-width: 400px) {
      width: 326px;
   }
@@ -102,7 +98,6 @@ input {
   height: 68px;
   font-weight: 700;
   font-size: 24px;
-  /* align-items: center; */
   color: #FFFFFF;
   text-align: center;
   font-size: 24px;
@@ -111,9 +106,7 @@ input {
   border-radius: 68px;
   border: 0;
   margin: 54px 237px 32px;
-  /* margin-top: 54px;
-  margin-bottom: 23px; */
-  /* display: block; */
+
   @media screen and (min-width: 400px) {
      width: 326px;
   }
