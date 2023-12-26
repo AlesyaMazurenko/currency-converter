@@ -131,17 +131,17 @@ input {
   font-size: 18px; /* Increase font-size */
 }
 
-#myTable th, #myTable td {
+#rateTable th, #rateTable td {
   text-align: left; /* Left-align text */
   padding: 12px; /* Add padding */
 }
 
-#myTable tr {
+#rateTable tr {
   /* Add a bottom border to all table rows */
   border-bottom: 1px solid #ddd;
 }
 
-#myTable tr.header, #myTable tr:hover {
+#rateTable tr.header, #rateTable tr:hover {
   /* Add a grey background color to the table header and on hover */
   background-color: #f1f1f1;
 }
