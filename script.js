@@ -94,3 +94,45 @@ function searchFunction() {
     }
   }
 }
+
+// const countDownDate = new Date("Jan 4, 2024 10:46:52").getTime();
+
+const timerFunc = setInterval(function () {
+  const openingHour = 9;
+  const closeHour = 17;
+  let now = new Date().getTime();
+// const now = new Date("Jan 5, 2024 18:46:52").getTime();
+
+  const days = Math.floor(now / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((now % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((now % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((now % (1000 * 60)) / 1000);
+
+  const timefield = document.getElementById("timefield");
+  let circle = document.getElementById("circle").style;
+
+  const remaiMin = minutes === 0 ? 0 : 59 - minutes;
+  const remaiSec = seconds === 0 ? 0 : 59 - seconds;
+  
+  if (hours >= openingHour && hours < closeHour) {
+    const remaiHour = closeHour - hours - 1;
+   
+    timefield.innerHTML = `Now market is Open remained ${remaiHour}hours ${remaiMin}min ${remaiSec}sec`;
+    circle.backgroundColor = "hsl(120, 100%, 50%)";
+  } else {
+    const remaiHour = hours > openingHour ? 24 - hours + 9 - 1 : openingHour - hours - 1;
+    
+    timefield.innerHTML = `Now market is Closed remained ${remaiHour}hours ${remaiMin}min ${remaiSec}sec`;
+    circle.backgroundColor = "hsl(340, 100%, 50%)";
+  }
+}, 1000)
+
+
+function timer() {
+  const dateNow = new Date();
+  const currentDate = dateNow.toLocaleTimeString();
+  const timefield = document.getElementById("timefield");
+  timefield.innerText= (currentDate);
+  
+}
+// timer();

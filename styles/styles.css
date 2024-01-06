@@ -34,6 +34,52 @@ h1 {
   text-align: center;
 }
 
+.timefield {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.timefield_descr{
+  padding-left: 10px;
+  font-weight: 600;
+  color: #626060;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle, .circle::before {
+  content: " ";
+  margin: 15px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 0 auto;
+  transition: all 0.3s;
+}
+
+.circle::before {
+  animation: blink 2s linear infinite;
+  position: absolute;
+  background-color: #ffc400
+}
+
+@keyframes blink {
+  50%   {
+    transform: scale(2);
+    opacity: 0
+  }
+  100%   {
+    transform: scale(2);
+    opacity: 0
+  }
+}
+
 .frame {
   width: 85%;
   border-radius: 5px;
