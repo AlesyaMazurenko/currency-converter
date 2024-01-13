@@ -57,7 +57,10 @@
         <!-- // List of currency rate objects -->
         <div class="rates_table">
         <input type="text" id="searchInp" onkeyup="searchFunction()" placeholder="Search for names..">
-        <table id="rateTable">
+        <span class="lbl_form"> Filter by rate: </span>
+        <input type="number" id="searchRateFrom" onkeyup="searchFunction()" placeholder="Rate from...">
+        <input type="number" id="searchRateTo" onkeyup="searchFunction()" placeholder="Rate to...">
+        <table id="rateTable" class="rate_table">
         </table>
         </div>
     </main>
