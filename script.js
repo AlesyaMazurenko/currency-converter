@@ -9,7 +9,7 @@ let currencyRate = [
     timestamp: new Date().toLocaleDateString(),
     base: "USD",
     date: "2023-12-12",
-    rates: [],
+    rates: {},
   },
   {
     timestamp: new Date().toLocaleDateString(),
@@ -35,13 +35,12 @@ const specials = {
 }
   
 
-
-// function displayTable(currBase, rates) {
-  function displayTable(currencyRate){
+function displayTable(currencyRate){
   const rateTable = document.getElementById("rateTable");
   rateTable.innerHTML = '';
   const tableHeader ='<tr class="header"> <th style="width:35%;">From</th> <th style="width:35%;">To</th><th style="width:30%;">Rate</th> </tr>';
   rateTable.insertAdjacentHTML('afterbegin', tableHeader);
+ 
     currencyRate.map((item) => {
       const currBaseitem = item.base;
       const rates = item.rates;
@@ -76,24 +75,48 @@ function onRateSubmit(event) {
   event.preventDefault();
   const currBase = document.getElementById("base_curr").value;
   const newCurrency = document.getElementById("new_curr").value;
-  const newRate = document.getElementById('curr_rate').value;
-  if (currBase !== "" && newCurrency !== '') {
-   
-    // currencyRate.rates[newCurrency] = newRate;
-    const current= currencyRate.find((currObj)=>currObj.base===currBase)
-    current.rates[newCurrency] = newRate;
-    current.timestamp = new Date().toLocaleString();
+  const newRate = document.getElementById("curr_rate").value;
 
-     if (!current.rates[newCurrency]) {
-       addRate(newCurrency);
-     }
+  const currencyIn = document.getElementById("curr_input").value;
+
+  if (currBase !== "" && newCurrency !== '') {
+    if (newRate !== '') {
+      // currencyRate.rates[newCurrency] = newRate;
+      const current = currencyRate.find((currObj) => currObj.base === currBase);
+  
+      current.rates[newCurrency]=newRate;
+      current.timestamp = new Date().toLocaleString();
+
+      if (!current.rates[newCurrency]) {
+        addRate(newCurrency);
+      }
+    } else {
+      alert("Please insert currency rate");
+    }
   } else {
-    alert('Please insert name of currency')
+    alert('Please insert name of currency and rate')
   }
 
   displayTable(currencyRate);
+  handleCurrencyChange();
   document.getElementById("new_curr").value = "";
-  document.getElementById("curr_rate").value = "";
+  document.getElementById("curr_rate").value = "1";
+}
+
+function handleCurrencyChange() {
+  const currencyIn = document.getElementById("curr_input").value;
+  const listofCurr = document.getElementById("curr_output");
+  listofCurr.innerHTML = "";
+  const currentCurrency = currencyRate.find(
+    (currObj) => currObj.base === currencyIn
+  );
+
+  for (const item in currentCurrency.rates) {
+    const listItem = document.createElement("option");
+    listItem.value = item;
+    listItem.innerHTML = item;
+    listofCurr.appendChild(listItem);
+  }
 }
 
 function onSubmit() {
@@ -108,39 +131,51 @@ function onSubmit() {
 }
 
 
-function searchFunction() {
-  // Declare variables
-  let input,
-    filter,
-    table,
-    tr,
-    td, td1, td2,
-    i,
-    txtValue,
-    txtValue1,
-    rateValue,
-    inputRateFrom,
-    inputRateTo;
-  input = document.getElementById("searchInp");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("rateTable");
-  tr = table.getElementsByTagName("tr");
+function searchByNameFunction() {
+  const input = document.getElementById("searchInp");
+  const filter = input.value.toUpperCase();
+  const table = document.getElementById("rateTable");
+  const tr = table.getElementsByTagName("tr");
 
-  inputRateFrom = +(document.getElementById("searchRateFrom").value);
-  inputRateTo = +((document.getElementById("searchRateTo").value) === '' ?
-    100000000 : (document.getElementById("searchRateTo").value));
-  
-  
   // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    td1 = tr[i].getElementsByTagName("td")[1];
-    td2 = tr[i].getElementsByTagName("td")[2];
+  for (let i = 0; i < tr.length; i++) {
+    const td = tr[i].getElementsByTagName("td")[0];
+    const td1 = tr[i].getElementsByTagName("td")[1];
 
-    if (td || td1 || td2) {
-      txtValue = td.textContent || td.innerText;
-      txtValue1 = td1.textContent || td1.innerText;
-      rateValue =+ td2.textContent;
+    if (td || td1) {
+      const txtValue = td.textContent || td.innerText;
+      const txtValue1 = td1.textContent || td1.innerText;
+
+      if (txtValue.indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else if (txtValue1.indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function searchByRateFunction() {
+  const input = document.getElementById("searchInp");
+  const filter = input.value.toUpperCase();
+  const table = document.getElementById("rateTable");
+  const tr = table.getElementsByTagName("tr");
+
+  const inputRateFrom = +document.getElementById("searchRateFrom").value;
+  const inputRateTo = +(document.getElementById("searchRateTo").value === ""
+    ? 100000000
+    : document.getElementById("searchRateTo").value);
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (let i = 0; i < tr.length; i++) {
+    const td = tr[i].getElementsByTagName("td")[0];
+    const td1 = tr[i].getElementsByTagName("td")[1];
+    const td2 = tr[i].getElementsByTagName("td")[2];
+
+    if (td2) {
+      const rateValue = +td2.textContent;
 
       if (inputRateFrom >= 0 || inputRateTo !== 0) {
         if (rateValue >= inputRateFrom && rateValue <= inputRateTo) {
@@ -149,14 +184,6 @@ function searchFunction() {
         } else {
           tr[i].style.display = "none";
           console.log("out  of rate");
-        };
-      } else {
-        if (txtValue.indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else if (txtValue1.indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
         }
       }
     }
