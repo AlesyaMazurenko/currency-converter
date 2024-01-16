@@ -34,6 +34,61 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #626060;
+  margin: 60px 0px 12px;
+  text-align: center;
+}
+
+.timefield {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.timefield_descr{
+  padding-left: 10px;
+  font-weight: 600;
+  color: #626060;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle, .circle::before {
+  content: " ";
+  margin: 15px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 0 auto;
+  transition: all 0.3s;
+}
+
+.circle::before {
+  animation: blink 2s linear infinite;
+  position: absolute;
+  background-color: #ffc400
+}
+
+@keyframes blink {
+  50%   {
+    transform: scale(2);
+    opacity: 0
+  }
+  100%   {
+    transform: scale(2);
+    opacity: 0
+  }
+}
+
 .frame {
   width: 85%;
   border-radius: 5px;
@@ -91,6 +146,7 @@ input {
   font-size: 18px;
   font-weight: 400;
   padding: 12px;
+  width: 20%;
 }
 
 .btn {
@@ -110,4 +166,49 @@ input {
   @media screen and (min-width: 400px) {
      width: 326px;
   }
+}
+
+.rates_table {
+  margin: 40px 0 40px;
+}
+
+
+#searchInp {
+  background-image: url('./search_149852.png'); /* Add a search icon to input*/
+  background-position: 10px 22px;
+  background-size: 20px;
+  background-repeat: no-repeat; 
+  width: 40%; 
+  font-size: 16px; 
+  padding: 12px 10px 12px 45px; 
+  border: 1px solid #ddd; 
+  margin-bottom: 12px; 
+}
+
+#searchRateFrom, #searchRateTo {
+  width: 12%; 
+  font-size: 16px; 
+  padding: 12px 10px; 
+  border: 1px solid #ddd; 
+  margin-bottom: 12px; 
+}
+
+#rateTable {
+  border-collapse: collapse; 
+  width: 100%; 
+  border: 1px solid #ddd; 
+  font-size: 18px;
+}
+
+#rateTable th, #rateTable td {
+  text-align: left; 
+  padding: 12px;
+}
+
+#rateTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#rateTable tr.header, #rateTable tr:hover {
+  background-color: #f1f1f1;
 }

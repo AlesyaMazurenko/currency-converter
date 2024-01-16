@@ -11,6 +11,13 @@
         <h1>Welcome to New Currency Converter</h1>
     </header>
     <main>
+        <div class="timefield">
+            <section class="container">
+                <div class="circle" id="circle"></div>
+            </section>
+            <p class="timefield_descr" id="timefield" > </p>
+
+        </div>
         <form>
             <fieldset class="frame">
                 <legend>Insert rates</legend>
@@ -25,14 +32,18 @@
             </fieldset>
         </form>
 
+        <!-- convert -->
         <form>
+            <h2>Converter</h2>
             <fieldset class="frame">
                 <legend>From</legend>
             <label class="lbl_form" for="amount_input">Amount</label>
             <input id="amount_input" type="number" width="25px" placeholder="1" value="1">
             <label class="lbl_form"  for="curr_input">Choose a currency:</label>
-            <select class='select_curr' id="curr_input" name="curr_input">
+            <select class='select_curr' id="curr_input" name="curr_input" onchange="handleCurrencyChange()">
                 <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+                <option value="DKK">DKK</option>
             </select>
             </fieldset>
             <fieldset  class="frame">
@@ -46,6 +57,15 @@
             <button type="button" class="btn" onclick='onSubmit()'>Convert</button>
         </form>
 
+        <!-- // List of currency rate objects -->
+        <div class="rates_table">
+        <input type="text" id="searchInp" onkeyup="searchByNameFunction()" placeholder="Search for names..">
+        <span class="lbl_form"> Filter by rate: </span>
+        <input type="number" id="searchRateFrom" onkeyup="searchByRateFunction()" placeholder="Rate from...">
+        <input type="number" id="searchRateTo" onkeyup="searchByRateFunction()" placeholder="Rate to...">
+        <table id="rateTable" class="rate_table">
+        </table>
+        </div>
     </main>
     <script src="./script.js"></script>
 </body>
