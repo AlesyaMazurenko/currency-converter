@@ -1,24 +1,3 @@
-// let currencyRate = [
-//   {
-//     timestamp: new Date().toLocaleDateString(),
-//     base: "EUR",
-//     date: "2023-12-12",
-//     rates: {},
-//   },
-//   {
-//     timestamp: new Date().toLocaleDateString(),
-//     base: "USD",
-//     date: "2023-12-12",
-//     rates: {},
-//   },
-//   {
-//     timestamp: new Date().toLocaleDateString(),
-//     base: "DKK",
-//     date: "2023-12-12",
-//     rates: {},
-//   },
-// ];
-
 const specials = {
   EUR: {
     USD: 2,
@@ -36,19 +15,17 @@ const specials = {
 
 let currencyRate = [];
 
-function getData() {
+function getAndShowData() {
   fetchCurrencyRate()
-    .then((responce) => {
- 
-      currencyRate.push(...responce)
-      displayTable(responce);
-      displayConverter(responce);
-
+    .then((response) => {
+      currencyRate.push(...response);
+      displayTable(response);
+      displayConverter(response);
     })
-    .catch((error) => console.error(error))
+    .catch((error) => console.error(error));
 }
 
-getData();
+getAndShowData();
 
 function fetchCurrencyRate() {
   return fetch(
@@ -130,8 +107,6 @@ function onRateSubmit(event) {
   const newCurrency = document.getElementById("new_curr").value;
   const newRate = document.getElementById("curr_rate").value;
 
-  const currencyIn = document.getElementById("curr_input").value;
-
   if (currBase !== "" && newCurrency !== '') {
     if (newRate !== '') {
       // currencyRate.rates[newCurrency] = newRate;
@@ -185,9 +160,7 @@ function onSubmit() {
     .getElementById("curr_output")
     .value.toUpperCase();
 
-  const ratebase = currencyRate.find(item =>  item.base === currencyIn);
-  // const rate = rateb.find(item => item.rates === currencyOut);
-  // console.log(currencyRate['base'==currencyIn])
+  const ratebase = currencyRate.find(item => item.base === currencyIn);
   const rate = ratebase.rates[currencyOut];
   const converted = amountIn * rate;
   amountOut.value = converted;
@@ -242,11 +215,9 @@ function searchByRateFunction() {
 
       if (inputRateFrom >= 0 || inputRateTo !== 0) {
         if (rateValue >= inputRateFrom && rateValue <= inputRateTo) {
-          // console.log("goes  in rate");
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
-          // console.log("out  of rate");
         }
       }
     }
