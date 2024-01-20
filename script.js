@@ -15,27 +15,24 @@ const specials = {
 
 let currencyRate = [];
 
-function getAndShowData() {
+const getAndShowData = new Promise((resolve, reject) => {
   fetchCurrencyRate()
-    .then((response) => {
-      currencyRate.push(...response);
-      displayTable(response);
-      displayConverter(response);
+    .then((resolve) => {
+      currencyRate.push(...resolve);
+      displayTable(resolve);
+      displayConverter(resolve);
     })
     .catch((error) => console.error(error));
-}
+})
 
-getAndShowData();
-
-function fetchCurrencyRate() {
-  return fetch(
+async function fetchCurrencyRate() {
+  const response = await fetch(
     "https://raw.githubusercontent.com/AlesyaMazurenko/alesyamazurenko.github.io/main/data/currencyrates.json"
-  ).then((response) => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  });
+  );
+  if (!response.ok) {
+    throw new Error(response.status);
+  }
+  return await response.json();
 }
 
  
@@ -101,16 +98,15 @@ function addRate(newCurrency) {
 }
 
 //add rates in user form Insert rates
-function onRateSubmit(event) {
+function onNewRateSubmit(event) {
   event.preventDefault();
-  const currBase = document.getElementById("base_curr").value;
-  const newCurrency = document.getElementById("new_curr").value;
+  const currBase = document.getElementById("base_curr").value.toUpperCase();
+  const newCurrency = document.getElementById("new_curr").value.toUpperCase();
   const newRate = document.getElementById("curr_rate").value;
 
   if (currBase !== "" && newCurrency !== '') {
     if (newRate !== '') {
-      // currencyRate.rates[newCurrency] = newRate;
-      const current = currencyRate.find((currObj) => currObj.base === currBase);
+      let current = currencyRate.find((currObj) => currObj.base === currBase);
   
       current.rates[newCurrency]=newRate;
       current.timestamp = new Date().toLocaleString();
