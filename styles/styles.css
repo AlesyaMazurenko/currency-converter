@@ -113,6 +113,16 @@ h2 {
   border-radius: 5px;
   margin: 12px auto;
   padding: 15px;
+
+  @media screen and (min-width: 480px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 800px) {
+   display: block; 
+  }
 }
 
 legend {
@@ -154,8 +164,14 @@ input {
   border-radius: 68px;
   border: 0;
   margin: 23px 177px 23px 177px;
-  @media screen and (min-width: 400px) {
+
+  
+  @media screen and (min-width: 480px) {
      width: 326px;
+     margin: 23px 10px;
+  }
+  @media screen and (min-width:800px) {
+     margin: 23px 177px 23px 177px; 
   }
 }
 
@@ -180,10 +196,14 @@ input {
   background: linear-gradient(93deg, #FD7B46 1.15%, #FE4E9B 98.48%);
   border-radius: 68px;
   border: 0;
-  margin: 54px 237px 32px;
+  /* margin: 54px 23px 32px; */
 
-  @media screen and (min-width: 400px) {
+  @media screen and (min-width: 480px) {
      width: 326px;
+     margin: 32px   ;
+  }
+  @media screen and (min-width: 800px) {
+    margin: 54px 237px 32px;
   }
 }
 
@@ -230,4 +250,12 @@ input {
 
 #rateTable tr.header, #rateTable tr:hover {
   background-color: #f1f1f1;
+}
+
+.footer_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px auto;
+  color: #626060;
 }
