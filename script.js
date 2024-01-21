@@ -15,15 +15,12 @@ const specials = {
 
 let currencyRate = [];
 
-const getAndShowData = new Promise((resolve, reject) => {
-  fetchCurrencyRate()
-    .then((resolve) => {
-      currencyRate.push(...resolve);
-      displayTable(resolve);
-      displayConverter(resolve);
-    })
-    .catch((error) => console.error(error));
-})
+async function getAndShowData() {
+  const data = await fetchCurrencyRate();
+  currencyRate.push(...data);
+  displayTable(data);
+  displayConverter(data);
+}
 
 async function fetchCurrencyRate() {
   const response = await fetch(
@@ -34,7 +31,7 @@ async function fetchCurrencyRate() {
   }
   return await response.json();
 }
-
+getAndShowData();
  
 function displayTable(currencyRate){
   const rateTable = document.getElementById("rateTable");
@@ -53,7 +50,12 @@ function displayTable(currencyRate){
          const tableCol3 = document.createElement("td");
          tableCol1.textContent = currBaseitem;
          tableCol2.textContent = item;
-         tableCol3.textContent = rates[item];
+        tableCol3.textContent = rates[item];
+        
+        if (specials[currBaseitem] && specials[currBaseitem][item] <= rates[item])
+        {
+          tableRow.style.backgroundColor = "#66CDAA";
+        }
    
          tableRow.appendChild(tableCol1);
          tableRow.appendChild(tableCol2);
@@ -169,6 +171,8 @@ function searchByNameFunction() {
   const table = document.getElementById("rateTable");
   const tr = table.getElementsByTagName("tr");
 
+  
+  // 
   // Loop through all table rows, and hide those who don't match the search query
   for (let i = 0; i < tr.length; i++) {
     const td = tr[i].getElementsByTagName("td")[0];

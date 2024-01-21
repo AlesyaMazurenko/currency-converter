@@ -7,10 +7,12 @@
     <title>Currency converter</title>
 </head>
 <body>
+  
     <header>
         <h1>Welcome to New Currency Converter</h1>
     </header>
     <main>
+        <div class="main_wrapper">
         <div class="timefield">
             <section class="container">
                 <div class="circle" id="circle"></div>
@@ -59,13 +61,15 @@
 
         <!-- // List of currency rate objects -->
         <div class="rates_table">
-        <input type="text" id="searchInp" onkeyup="searchByNameFunction()" placeholder="Search for names..">
-        <span class="lbl_form"> Filter by rate: </span>
-        <input type="number" id="searchRateFrom" onkeyup="searchByRateFunction()" placeholder="Rate from...">
-        <input type="number" id="searchRateTo" onkeyup="searchByRateFunction()" placeholder="Rate to...">
-        <table id="rateTable" class="rate_table">
-        </table>
+            <input type="text" id="searchInp" onkeyup="searchByNameFunction()" placeholder="Search for names..">
+             <span class="lbl_form"> Filter by rate: </span>
+             <input type="number" id="searchRateFrom" onkeyup="searchByRateFunction()" placeholder="Rate from...">
+            <input type="number" id="searchRateTo" onkeyup="searchByRateFunction()" placeholder="Rate to...">
+            <table id="rateTable" class="rate_table">
+            </table>
         </div>
+        </div>
+    <!-- </div> -->
     </main>
     <script src="./script.js"></script>
 </body>
