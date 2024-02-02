@@ -172,19 +172,26 @@ function searchByNameFunction() {
   const tr = table.getElementsByTagName("tr");
 
   
+  const inputRateFrom = +document.getElementById("searchRateFrom").value;
+  const inputRateTo = +(document.getElementById("searchRateTo").value === ""
+    ? 1000000000
+    : document.getElementById("searchRateTo").value);
+  
   // 
   // Loop through all table rows, and hide those who don't match the search query
   for (let i = 0; i < tr.length; i++) {
     const td = tr[i].getElementsByTagName("td")[0];
     const td1 = tr[i].getElementsByTagName("td")[1];
-
+    const td2 = tr[i].getElementsByTagName("td")[2];
+    
     if (td || td1) {
       const txtValue = td.textContent || td.innerText;
       const txtValue1 = td1.textContent || td1.innerText;
+      const rateValue = +td2.textContent;
 
-      if (txtValue.indexOf(filter) > -1) {
+      if (txtValue.indexOf(filter) > -1 && rateValue >= inputRateFrom && rateValue <= inputRateTo) {
         tr[i].style.display = "";
-      } else if (txtValue1.indexOf(filter) > -1) {
+      } else if (txtValue1.indexOf(filter) > -1 && rateValue >= inputRateFrom && rateValue <= inputRateTo) {
         tr[i].style.display = "";
       } else {
         tr[i].style.display = "none";
@@ -193,36 +200,36 @@ function searchByNameFunction() {
   }
 }
 
-function searchByRateFunction() {
-  const input = document.getElementById("searchInp");
-  const filter = input.value.toUpperCase();
-  const table = document.getElementById("rateTable");
-  const tr = table.getElementsByTagName("tr");
+// function searchByRateFunction() {
+//   const input = document.getElementById("searchInp");
+//   const filter = input.value.toUpperCase();
+//   const table = document.getElementById("rateTable");
+//   const tr = table.getElementsByTagName("tr");
 
-  const inputRateFrom = +document.getElementById("searchRateFrom").value;
-  const inputRateTo = +(document.getElementById("searchRateTo").value === ""
-    ? 100000000
-    : document.getElementById("searchRateTo").value);
+//   const inputRateFrom = +document.getElementById("searchRateFrom").value;
+//   const inputRateTo = +(document.getElementById("searchRateTo").value === ""
+//     ? 100000000
+//     : document.getElementById("searchRateTo").value);
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (let i = 0; i < tr.length; i++) {
-    const td = tr[i].getElementsByTagName("td")[0];
-    const td1 = tr[i].getElementsByTagName("td")[1];
-    const td2 = tr[i].getElementsByTagName("td")[2];
+//   // Loop through all table rows, and hide those who don't match the search query
+//   for (let i = 0; i < tr.length; i++) {
+//     const td = tr[i].getElementsByTagName("td")[0];
+//     const td1 = tr[i].getElementsByTagName("td")[1];
+//     const td2 = tr[i].getElementsByTagName("td")[2];
 
-    if (td2) {
-      const rateValue = +td2.textContent;
+//     if (td2) {
+//       const rateValue = +td2.textContent;
 
-      if (inputRateFrom >= 0 || inputRateTo !== 0) {
-        if (rateValue >= inputRateFrom && rateValue <= inputRateTo) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }
-  }
-}
+//       if (inputRateFrom >= 0 || inputRateTo !== 0) {
+//         if (rateValue >= inputRateFrom && rateValue <= inputRateTo) {
+//           tr[i].style.display = "";
+//         } else {
+//           tr[i].style.display = "none";
+//         }
+//       }
+//     }
+//   }
+// }
 
 const timerFunc = setInterval(function () {
   const openingHour = 9;
