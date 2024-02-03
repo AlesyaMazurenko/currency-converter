@@ -15,29 +15,23 @@ const specials = {
 
 let currencyRate = [];
 
-function getAndShowData() {
-  fetchCurrencyRate()
-    .then((response) => {
-      currencyRate.push(...response);
-      displayTable(response);
-      displayConverter(response);
-    })
-    .catch((error) => console.error(error));
+async function getAndShowData() {
+  const data = await fetchCurrencyRate();
+  currencyRate.push(...data);
+  displayTable(data);
+  displayConverter(data);
 }
 
-getAndShowData();
-
-function fetchCurrencyRate() {
-  return fetch(
+async function fetchCurrencyRate() {
+  const response = await fetch(
     "https://raw.githubusercontent.com/AlesyaMazurenko/alesyamazurenko.github.io/main/data/currencyrates.json"
-  ).then((response) => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  });
+  );
+  if (!response.ok) {
+    throw new Error(response.status);
+  }
+  return await response.json();
 }
-
+getAndShowData();
  
 function displayTable(currencyRate){
   const rateTable = document.getElementById("rateTable");
@@ -56,7 +50,12 @@ function displayTable(currencyRate){
          const tableCol3 = document.createElement("td");
          tableCol1.textContent = currBaseitem;
          tableCol2.textContent = item;
-         tableCol3.textContent = rates[item];
+        tableCol3.textContent = rates[item];
+        
+        if (specials[currBaseitem] && specials[currBaseitem][item] <= rates[item])
+        {
+          tableRow.style.backgroundColor = "#66CDAA";
+        }
    
          tableRow.appendChild(tableCol1);
          tableRow.appendChild(tableCol2);
@@ -101,16 +100,15 @@ function addRate(newCurrency) {
 }
 
 //add rates in user form Insert rates
-function onRateSubmit(event) {
+function onNewRateSubmit(event) {
   event.preventDefault();
-  const currBase = document.getElementById("base_curr").value;
-  const newCurrency = document.getElementById("new_curr").value;
+  const currBase = document.getElementById("base_curr").value.toUpperCase();
+  const newCurrency = document.getElementById("new_curr").value.toUpperCase();
   const newRate = document.getElementById("curr_rate").value;
 
   if (currBase !== "" && newCurrency !== '') {
     if (newRate !== '') {
-      // currencyRate.rates[newCurrency] = newRate;
-      const current = currencyRate.find((currObj) => currObj.base === currBase);
+      let current = currencyRate.find((currObj) => currObj.base === currBase);
   
       current.rates[newCurrency]=newRate;
       current.timestamp = new Date().toLocaleString();
@@ -173,18 +171,27 @@ function searchByNameFunction() {
   const table = document.getElementById("rateTable");
   const tr = table.getElementsByTagName("tr");
 
+  
+  const inputRateFrom = +document.getElementById("searchRateFrom").value;
+  const inputRateTo = +(document.getElementById("searchRateTo").value === ""
+    ? 1000000000
+    : document.getElementById("searchRateTo").value);
+  
+  // 
   // Loop through all table rows, and hide those who don't match the search query
   for (let i = 0; i < tr.length; i++) {
     const td = tr[i].getElementsByTagName("td")[0];
     const td1 = tr[i].getElementsByTagName("td")[1];
-
+    const td2 = tr[i].getElementsByTagName("td")[2];
+    
     if (td || td1) {
       const txtValue = td.textContent || td.innerText;
       const txtValue1 = td1.textContent || td1.innerText;
+      const rateValue = +td2.textContent;
 
-      if (txtValue.indexOf(filter) > -1) {
+      if (txtValue.indexOf(filter) > -1 && rateValue >= inputRateFrom && rateValue <= inputRateTo) {
         tr[i].style.display = "";
-      } else if (txtValue1.indexOf(filter) > -1) {
+      } else if (txtValue1.indexOf(filter) > -1 && rateValue >= inputRateFrom && rateValue <= inputRateTo) {
         tr[i].style.display = "";
       } else {
         tr[i].style.display = "none";
@@ -193,36 +200,36 @@ function searchByNameFunction() {
   }
 }
 
-function searchByRateFunction() {
-  const input = document.getElementById("searchInp");
-  const filter = input.value.toUpperCase();
-  const table = document.getElementById("rateTable");
-  const tr = table.getElementsByTagName("tr");
+// function searchByRateFunction() {
+//   const input = document.getElementById("searchInp");
+//   const filter = input.value.toUpperCase();
+//   const table = document.getElementById("rateTable");
+//   const tr = table.getElementsByTagName("tr");
 
-  const inputRateFrom = +document.getElementById("searchRateFrom").value;
-  const inputRateTo = +(document.getElementById("searchRateTo").value === ""
-    ? 100000000
-    : document.getElementById("searchRateTo").value);
+//   const inputRateFrom = +document.getElementById("searchRateFrom").value;
+//   const inputRateTo = +(document.getElementById("searchRateTo").value === ""
+//     ? 100000000
+//     : document.getElementById("searchRateTo").value);
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (let i = 0; i < tr.length; i++) {
-    const td = tr[i].getElementsByTagName("td")[0];
-    const td1 = tr[i].getElementsByTagName("td")[1];
-    const td2 = tr[i].getElementsByTagName("td")[2];
+//   // Loop through all table rows, and hide those who don't match the search query
+//   for (let i = 0; i < tr.length; i++) {
+//     const td = tr[i].getElementsByTagName("td")[0];
+//     const td1 = tr[i].getElementsByTagName("td")[1];
+//     const td2 = tr[i].getElementsByTagName("td")[2];
 
-    if (td2) {
-      const rateValue = +td2.textContent;
+//     if (td2) {
+//       const rateValue = +td2.textContent;
 
-      if (inputRateFrom >= 0 || inputRateTo !== 0) {
-        if (rateValue >= inputRateFrom && rateValue <= inputRateTo) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }
-  }
-}
+//       if (inputRateFrom >= 0 || inputRateTo !== 0) {
+//         if (rateValue >= inputRateFrom && rateValue <= inputRateTo) {
+//           tr[i].style.display = "";
+//         } else {
+//           tr[i].style.display = "none";
+//         }
+//       }
+//     }
+//   }
+// }
 
 const timerFunc = setInterval(function () {
   const openingHour = 9;

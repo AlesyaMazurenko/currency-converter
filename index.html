@@ -7,10 +7,12 @@
     <title>Currency converter</title>
 </head>
 <body>
+  
     <header>
         <h1>Welcome to New Currency Converter</h1>
     </header>
     <main>
+        <div class="main_wrapper">
         <div class="timefield">
             <section class="container">
                 <div class="circle" id="circle"></div>
@@ -28,7 +30,7 @@
                 <label class="lbl_form" for="curr_rate">Rate</label>
                 <input id="curr_rate" name="curr_rate"  placeholder="1" value="1">
 
-                <button type="submit" class="btn_rate" onclick='onRateSubmit(event)'>Add rate</button>
+                <button type="submit" class="btn_rate" onclick='onNewRateSubmit(event)'>Add rate</button>
             </fieldset>
         </form>
 
@@ -59,14 +61,21 @@
 
         <!-- // List of currency rate objects -->
         <div class="rates_table">
-        <input type="text" id="searchInp" onkeyup="searchByNameFunction()" placeholder="Search for names..">
-        <span class="lbl_form"> Filter by rate: </span>
-        <input type="number" id="searchRateFrom" onkeyup="searchByRateFunction()" placeholder="Rate from...">
-        <input type="number" id="searchRateTo" onkeyup="searchByRateFunction()" placeholder="Rate to...">
-        <table id="rateTable" class="rate_table">
-        </table>
+            <input type="text" id="searchInp" onkeyup="searchByNameFunction()" placeholder="Search for names..">
+             <span class="lbl_form"> Filter by rate: </span>
+             <input type="number" id="searchRateFrom" onkeyup="searchByNameFunction()" placeholder="Rate from...">
+            <input type="number" id="searchRateTo" onkeyup="searchByNameFunction()" placeholder="Rate to...">
+            <table id="rateTable" class="rate_table">
+            </table>
+        </div>
         </div>
     </main>
+    <footer>
+        <div class="footer_wrapper">
+            <p> Designed by Olesia Mazurenko</p>
+            <p>HackYourFuture </p><p>© 2024 -  All Rights Reserved</p>
+        </div>
+    </footer>
     <script src="./script.js"></script>
 </body>
 </html>
